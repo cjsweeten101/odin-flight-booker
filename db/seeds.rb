@@ -10,5 +10,6 @@ Airport.create(code:"PHL")
 
 # Flights
 7.times do |i|
-	Flight.create(start:Time.now, end:Time.now + 100000, from_airport: Airport.find(i+1), to_airport: Airport.find(i+2))
+	start = Time.now + (i * 86400)
+	Flight.create(start: start, end:start + 50000, from_airport: Airport.find(i+1), to_airport: Airport.find(i+2))
 end
