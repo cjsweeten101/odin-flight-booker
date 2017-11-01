@@ -1,0 +1,9 @@
+Flight Info:<p>
+
+<%= @booking.flight.from_airport.code%> to <%= @booking.flight.to_airport.code%> on <%= @booking.flight.start.strftime("%B %d %Y, %I:%M %p")%>
+
+<p>Passenger Info:<p>
+
+<% @booking.passengers.each do |pas| %>
+	Name: <%= pas.name %>, Email: <%= pas.email %><p>
+<% end %>

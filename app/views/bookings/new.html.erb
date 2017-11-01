@@ -1,0 +1,17 @@
+Flight info: <%= @flight.from_airport.code%> to <%= @flight.to_airport.code %> on <%= @flight.start.strftime("%B %d %Y, %I:%M %p")%> for <%= pluralize(@passengers.count, "passenger") %>
+
+<%= form_for @booking do |bf| %>
+	<% @passengers.each do |passenger| %>
+	<p>
+		<%= bf.fields_for passenger, index: passenger.id do |pf| %>
+			<%= pf.label :name %>
+			<%= pf.text_field :name %>
+
+			<%= pf.label :email %>
+			<%= pf.email_field :email %>
+		<% end %>
+	<% end %>
+	<p>
+	<%= bf.hidden_field "flight_id", value: @flight.id %>
+	<%= bf.submit "Create Booking"%>
+<% end %>
