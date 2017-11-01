@@ -1,1 +1,23 @@
-hi
+Find a Flight:
+<p>
+<%= form_tag root_path, method: "get" do %>	
+	Departing Airport: <%= select_tag(:from_airport, options_for_select(@airports)) %> | Arriving Airport: <%= select_tag(:to_airport, options_for_select(@airports)) %> | Date: <%= select_tag(:start, options_for_select(@starts)) %> | Passengers: <%= select_tag(:passengers, options_for_select(@passengers)) %>
+	<p>
+	<%= submit_tag "Search" %>
+<% end %>
+
+<% if !params[:start].nil? %>
+	<% if @flights.empty? %>
+		Sorry, no flights found.
+	<% else %>
+		<%= form_tag 'bookings/new', method: "get" do %>
+			<% @flights.each do |f| %>
+				<%= radio_button_tag :flight_id, f.id %>
+				<%= f.from_airport.code %> to <%= f.to_airport.code %>, on <%= f.start.strftime("%B %d %Y, %I:%M %p") %> 
+			<% end %>
+			<p>
+			<%= hidden_field_tag :passengers, params[:passengers] %>
+			<%= submit_tag "Choose Flight" %>
+		<% end %>
+	<% end %>
+<% end %>
