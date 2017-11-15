@@ -14,7 +14,8 @@ class BookingsController < ApplicationController
 		booking = flight.bookings.create()
 		passengers = white_params[:booking][:passenger]
 		passengers.each do |p|
-			booking.passengers.create(name:p[:name], email:p[:email])
+			passenger = booking.passengers.create(name:p[:name], email:p[:email])
+			PassengerMailer.thank_you_email(passenger, flight).deliver_later
 		end
 
 		redirect_to booking
